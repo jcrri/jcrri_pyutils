@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>polygon_example.kml</name>
+	<StyleMap id="msn_ylw-pushpin1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<PolyStyle>
+			<color>80ff55ff</color>
+		</PolyStyle>
+	</Style>
+	<Style id="sh_ylw-pushpin0">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<PolyStyle>
+			<color>80ff55ff</color>
+		</PolyStyle>
+	</Style>
+	<Folder>
+		<name>INCLUSION ZONES</name>
+		<open>1</open>
+		<Placemark>
+			<name>Polígono sin título</name>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							4.923672480473864,58.63437940212685,0 4.919838666855334,58.63366366225463,0 4.918196883266754,58.63218200989235,0 4.920531785698055,58.63050823520521,0 4.922285057621918,58.62953791114857,0 4.92358539612759,58.62971255491312,0 4.9287348201465,58.63081544245416,0 4.928982126902575,58.6286605143584,0 4.932524839079813,58.62804606808488,0 4.935105738128769,58.62744905089965,0 4.933741034964694,58.62646243132515,0 4.940033150536345,58.62593906650381,0 4.942369776566949,58.62634388052545,0 4.944073000535791,58.62704482240354,0 4.944067202250439,58.6280062967834,0 4.942125681806065,58.62855388434442,0 4.938173965196484,58.62885449208689,0 4.938506895927707,58.63037156219137,0 4.945085794083979,58.63006356428793,0 4.94561528815245,58.63144618478979,0 4.943970926907381,58.63263325768905,0 4.940880508239889,58.63246671651487,0 4.936983913666044,58.63262851606184,0 4.935872492124524,58.63379735581412,0 4.931845420474197,58.63400938451559,0 4.927936835618825,58.63401884422524,0 4.923672480473864,58.63437940212685,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Polígono sin título</name>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							4.933743726244913,58.62383817993902,0 4.936749599256709,58.6228719737192,0 4.941170917670372,58.62062406785049,0 4.947631783709962,58.6204905750278,0 4.9466993771521,58.6245387977637,0 4.936267573518284,58.62509263076742,0 4.933743726244913,58.62383817993902,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<name>Polígono sin título</name>
+			<styleUrl>#msn_ylw-pushpin1</styleUrl>
+			<Polygon>
+				<tessellate>1</tessellate>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							4.917586606190461,58.62758594715319,0 4.920207628556406,58.6264965949373,0 4.924457124036188,58.62613949953571,0 4.924959844878442,58.62462097655838,0 4.92101171910477,58.62256960768957,0 4.925687940187526,58.61997463491809,0 4.935243085795628,58.62009813727337,0 4.936521980497927,58.62113202690524,0 4.935169886174505,58.6222649774955,0 4.93484860961275,58.62225296539229,0 4.931829379495191,58.62237800427593,0 4.931034133054652,58.62424313930738,0 4.929905798543189,58.62639259493529,0 4.918615288948176,58.62932486089856,0 4.917586606190461,58.62758594715319,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
