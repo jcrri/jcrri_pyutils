@@ -68,10 +68,9 @@ def average_variables_fixed_ct_ti(wfm, wt_x, wt_y, x, wd, ws, ct, ti_array):
     ti_avg = (TI_eff * cgi.nodes_weight).sum(1)
     return ws_avg, ti_avg
 
-def average_rans_from_nc(wfm, wt_x, wt_y, x, ws, ti, dataset):
+def average_rans_from_nc(windTurbines, wt_x, wt_y, x, ws, ti, dataset):
     rans_ws = np.zeros((len(x), len(cgi.nodes_x)))
     rans_ti = np.zeros((len(x), len(cgi.nodes_x)))
-    windTurbines = wfm.windTurbines
     D = windTurbines.diameter()
     zRef = windTurbines.hub_height()
     x_j = np.array([x for _ in cgi.nodes_x]).flatten()
