@@ -83,24 +83,16 @@ class Rans_Lut_Turbulence(TurbulenceModel):
         return TI_add_ijlk
 
 class sup_study_deficits(Rans_Lut_Deficit):
-    def __init__(self, path):
+    def __init__(self, path, ti_array, ct_array):
         BlockageDeficitModel.__init__(self, upstream_only=True)
-        ti_array = np.array([0.023653181696014505, 0.16001328865763612, 0.17135927417062696, 0.16838378533670523,
-         0.16659213166696782, 0.16510372928368125, 0.1637805944552457, 0.1605681525527589,
-         0.15973725928666813, 0.1590884213576358])
-        ct_array = 0.9 * np.ones_like(ti_array)
         lut = xr.open_dataset(path)
         self.lut_interpolator = GridInterpolator(
             [ti_array, ct_array, lut.x.values, lut.y.values, lut.z.values], lut.deficits.values) 
         lut.close()
         
 class sup_study_turbulence(Rans_Lut_Turbulence):
-    def __init__(self, path, addedTurbulenceSuperpositionModel=LinearSum(), **kwargs):
+    def __init__(self, path, ti_array, ct_array, addedTurbulenceSuperpositionModel=LinearSum(), **kwargs):
         TurbulenceModel.__init__(self, addedTurbulenceSuperpositionModel, **kwargs)
-        ti_array = np.array([0.023653181696014505, 0.16001328865763612, 0.17135927417062696, 0.16838378533670523,
-         0.16659213166696782, 0.16510372928368125, 0.1637805944552457, 0.1605681525527589,
-         0.15973725928666813, 0.1590884213576358])
-        ct_array = 0.9 * np.ones_like(ti_array)
         lut = xr.open_dataset(path)
         self.lut_interpolator = GridInterpolator( 
             [ti_array, ct_array, lut.x.values, lut.y.values, lut.z.values], lut.added_ti.values)
