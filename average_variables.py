@@ -2,7 +2,7 @@ import numpy as np
 from py_wake.rotor_avg_models import CGIRotorAvg
 
 # Rotor model to average deficit and turbulence fields
-n_points = 9
+n_points = 21
 cgi = CGIRotorAvg(n_points)
 
 
@@ -56,8 +56,8 @@ def average_variables_fixed_ct_ti(wfm, wt_x, wt_y, x, wd, ws, ct, ti_array):
     h_j = np.array([x * 0 + zRef + z * D/2 for z in cgi.nodes_y]).flatten()
 
     sim_res = wfm(wt_x, wt_y, ws=ws, wd=270)
-    sim_res.CT[:, 0, 0] = ct
-    sim_res.TI_eff[:, 0, 0] = ti_array
+    # sim_res.CT[:, 0, 0] = ct
+    # sim_res.TI_eff[:, 0, 0] = ti_array
     lw_j, WS_eff_jlk, TI_eff_jlk = wfm._flow_map(x_j, y_j, h_j, sim_res)
     # TI and WS effective variables
     TI_eff = TI_eff_jlk.reshape((len(cgi.nodes_x), len(x))).T
