@@ -25,6 +25,25 @@ def average_variables(wfm, wt_x, wt_y, x, wd, ws):
     ti_avg = (TI_eff * cgi.nodes_weight).sum(1)
     return ws_avg, ti_avg
 
+def get_UAD(wfm, wt_x, wt_y, wd, ws):
+    wt_x = np.asarray(wt_x)
+    wt_y = np.asarray(wt_y)
+    windTurbines = wfm.windTurbines
+    D = windTurbines.diameter()
+    zRef = windTurbines.hub_height()
+    sim_res = wfm(wt_x, wt_y, ws=ws, wd=270)
+    
+    UAD = []
+    x_j = np.array([wt_x for _ in cgi.nodes_x]).flatten()
+    for xx, yy in zip(wt_x, wt_y):
+        y_j = np.array([wt_x * 0 + yy + y * D/2 for y in cgi.nodes_x]).flatten()
+        h_j = np.array([wt_x * 0 + zRef + z * D/2 for z in cgi.nodes_y]).flatten()
+        lw_j, WS_eff_jlk, TI_eff_jlk = wfm._flow_map(x_j, y_j, h_j, sim_res)
+        WS_eff = WS_eff_jlk.reshape((len(cgi.nodes_x), len(wt_x))).T
+        cgi.nodes_weight = 1/n_points
+        ws_avg = (WS_eff * cgi.nodes_weight).sum(1)
+        UAD.append(np.interp(xx, wt_x, ws_avg))
+    return np.asarray(UAD)
 
 def average_rans_data(wfm, wt_x, wt_y, x, ws, ti, rans_deficits, rans_added_ti):
     rans_ws = np.zeros((len(x), len(cgi.nodes_x)))
