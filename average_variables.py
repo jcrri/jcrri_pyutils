@@ -6,12 +6,12 @@ n_points = 21
 cgi = CGIRotorAvg(n_points)
 
 
-def average_variables(wfm, wt_x, wt_y, x, wd, ws):
+def average_variables(wfm, wt_x, wt_y, x, wd, ws, yc=0):
     windTurbines = wfm.windTurbines
     D = windTurbines.diameter()
     zRef = windTurbines.hub_height()
     x_j = np.array([x for _ in cgi.nodes_x]).flatten()
-    y_j = np.array([x * 0 + y * D/2 for y in cgi.nodes_x]).flatten()
+    y_j = np.array([x * 0 + y * D/2 + yc for y in cgi.nodes_x]).flatten()
     h_j = np.array([x * 0 + zRef + z * D/2 for z in cgi.nodes_y]).flatten()
 
     sim_res = wfm(wt_x, wt_y, ws=ws, wd=270)
@@ -45,7 +45,7 @@ def get_UAD(wfm, wt_x, wt_y, wd, ws):
         UAD.append(np.interp(xx, wt_x, ws_avg))
     return np.asarray(UAD)
 
-def average_rans_data(wfm, wt_x, wt_y, x, ws, ti, rans_deficits, rans_added_ti):
+def average_rans_data(wfm, wt_x, wt_y, x, ws, ti, rans_deficits, rans_added_ti, yc=0):
     rans_ws = np.zeros((len(x), len(cgi.nodes_x)))
     rans_ti = np.zeros((len(x), len(cgi.nodes_x)))
     windTurbines = wfm.windTurbines
@@ -56,10 +56,11 @@ def average_rans_data(wfm, wt_x, wt_y, x, ws, ti, rans_deficits, rans_added_ti):
     h_j = np.array([x * 0 + zRef + z * D/2 for z in cgi.nodes_y]).flatten()
     points_per_node = len(y_j)/len(cgi.nodes_x)
     xii = x - wt_x[-1]/2
+    yii = 0 - wt_y[-1]/2 + yc
     for node in range(n_points):
         xj = int(node * points_per_node)
-        rans_ws[:, node] = np.asarray(rans_deficits.U.interp(x=xii, y=y_j[xj], z=h_j[xj])).ravel() * ws/8
-        rans_ti[:, node] = np.asarray(rans_added_ti.I.interp(x=xii, y=y_j[xj], z=h_j[xj])).ravel() + ti
+        rans_ws[:, node] = np.asarray(rans_deficits.U.interp(x=xii, y=y_j[xj] + yii, z=h_j[xj])).ravel() * ws/8
+        rans_ti[:, node] = np.asarray(rans_added_ti.I.interp(x=xii, y=y_j[xj] + yii, z=h_j[xj])).ravel() + ti
     cgi.nodes_weight = 1/n_points
     rans_ws_avg = (rans_ws * cgi.nodes_weight).sum(1)
     rans_ti_avg = (rans_ti * cgi.nodes_weight).sum(1)
@@ -82,9 +83,7 @@ def average_rans_from_nc(windTurbines, wt_x, wt_y, x, ws, ti, dataset):
     cgi.nodes_weight = 1/n_points
     rans_ws_avg = (rans_ws * cgi.nodes_weight).sum(1)
     rans_ti_avg = ti + (rans_ti * cgi.nodes_weight).sum(1)
-    
     return rans_ws_avg, rans_ti_avg
-
 
 def setup_layout(n_wt, windTurbines, spacing, staggering):
     D = windTurbines.diameter()
