@@ -14,7 +14,7 @@ def average_variables(wfm, wt_x, wt_y, x, wd, ws, yc=0):
     y_j = np.array([x * 0 + y * D/2 + yc for y in cgi.nodes_x]).flatten()
     h_j = np.array([x * 0 + zRef + z * D/2 for z in cgi.nodes_y]).flatten()
 
-    sim_res = wfm(wt_x, wt_y, ws=ws, wd=270)
+    sim_res = wfm(wt_x, wt_y, ws=ws, wd=270, yaw=0)
     lw_j, WS_eff_jlk, TI_eff_jlk = wfm._flow_map(x_j, y_j, h_j, sim_res)
     # TI and WS effective variables
     TI_eff = TI_eff_jlk.reshape((len(cgi.nodes_x), len(x))).T
